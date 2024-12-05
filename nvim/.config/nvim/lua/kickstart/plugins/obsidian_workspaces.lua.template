@@ -1,0 +1,6 @@
+return {
+  {
+    name = '<workspace_name',
+    path = '<path_to_vault>',
+  },
+}
