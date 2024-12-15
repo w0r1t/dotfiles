@@ -73,6 +73,8 @@ return {
 				},
 			})
 
+			require("custom.plugins.telescope.live_multigrep").setup()
+
 			-- Enable Telescope extensions if they are installed
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "ui-select")
@@ -112,6 +114,13 @@ return {
 			vim.keymap.set("n", "<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
+
+			-- Shortcut for searching inside installed Neovim packages
+			vim.keymap.set("n", "<leader>sp", function()
+				builtin.find_files({
+					cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+				})
+			end, { desc = "[S]earch [P]ackages' files" })
 		end,
 	},
 }
