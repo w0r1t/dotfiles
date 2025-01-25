@@ -17,7 +17,9 @@ return {
 				"query",
 				"vim",
 				"vimdoc",
+				"java",
 				"go",
+				"python",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
