@@ -15,15 +15,15 @@ return {
 		--   "BufNewFile path/to/my-vault/*.md",
 		-- },
 		dependencies = {
-			-- Required.
+			-- Required:
 			"nvim-lua/plenary.nvim",
+			-- Recommended:
+			"epwalsh/pomo.nvim",
 		},
 		opts = {
 			workspaces = require("kickstart/plugins/obsidian_workspaces"),
 			completion = {
-				-- Set to false to disable completion.
 				nvim_cmp = true,
-				-- Trigger completion at 2 chars.
 				min_chars = 2,
 			},
 			templates = {
