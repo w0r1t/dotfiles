@@ -46,6 +46,8 @@ require("lazy").setup({
 
 	require("kickstart/plugins/tree"),
 
+	require("kickstart/plugins/markdown"),
+
 	require("kickstart/plugins/obsidian"),
 
 	require("kickstart/plugins/autopairs"),

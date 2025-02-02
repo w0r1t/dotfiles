@@ -29,6 +29,9 @@ return {
 			templates = {
 				folder = "_templates",
 			},
+			ui = {
+				enable = false,
+			},
 		},
 	},
 }
