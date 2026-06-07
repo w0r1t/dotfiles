@@ -10,13 +10,7 @@ vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- TIP: Disable arrow keys in normal mode
-vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -32,9 +26,6 @@ vim.keymap.set("", "<M-.>", "<C-w>5>")
 vim.keymap.set("", "<M-t>", "<C-w>+")
 vim.keymap.set("", "<M-s>", "<C-w>-")
 
--- Tree keymaps
-vim.keymap.set("n", "<leader>t", "<cmd>:NvimTreeToggle<CR>", { desc = "Toggle tree" })
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -45,18 +36,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
-		vim.highlight.on_yank()
+		vim.hl.on_yank()
 	end,
 })
 
--- Setup terminal
---  Set local settings for terminal buffers
 vim.api.nvim_create_autocmd("TermOpen", {
-	group = vim.api.nvim_create_augroup("custom-term-open", {}),
-	callback = function()
-		vim.opt_local.number = false
-		vim.opt_local.relativenumber = false
-		vim.opt_local.scrolloff = 0
+	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+	callback = function(args)
+		-- Используем безопасные методы Neovim API для конкретного окна терминала,
+		-- чтобы настройки интерфейса гарантированно не ломали другие буферы.
+		local win = vim.fn.bufwinid(args.buf)
+		if win > 0 then
+			vim.wo[win].number = false
+			vim.wo[win].relativenumber = false
+			vim.wo[win].scrolloff = 0
+		end
 	end,
 })
 --   Easily hit escape in terminal mode

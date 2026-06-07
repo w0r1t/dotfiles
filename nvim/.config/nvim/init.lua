@@ -1,6 +1,5 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.loader.enable()
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -8,17 +7,26 @@ vim.g.maplocalleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
 require("options")
 
--- [[ Basic Keymaps ]]
 require("keymaps")
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require("lazy-bootstrap")
+-- require("lazy-bootstrap")
+--
+-- require("lazy-plugins")
 
--- [[ Configure and install plugins ]]
-require("lazy-plugins")
+require("config.vimpack")
+
+require("config.treesitter")
+
+require("config.lsp")
+
+
+  require 'kickstart.plugins.debug'
+  require 'kickstart.plugins.autopairs'
+  require 'kickstart.plugins.neo-tree'
+  require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
+
+require("custom.plugins")
